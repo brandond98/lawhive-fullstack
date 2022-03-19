@@ -3,6 +3,7 @@ import { Container } from '@mui/material';
 import { GET_POSTS } from '../../graphql/queries/getPosts';
 import { PostType } from '../../types/Post';
 import { Post } from '../Post/Post';
+import './styles.css';
 
 export const PostList = () => {
   const { data, loading, error } = useQuery(GET_POSTS);
