@@ -8,11 +8,11 @@ export class PostService {
   posts: Post[];
   constructor(@InjectModel(Post.name) private postModel: Model<PostDocument>) {}
 
-  async findAll() {
+  async findAll(): Promise<Post[]> {
     return this.postModel.find();
   }
 
-  async createPost(post: CreatePostInput) {
+  async createPost(post: CreatePostInput): Promise<Post> {
     return this.postModel.create(post);
   }
 }
