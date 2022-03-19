@@ -6,7 +6,7 @@ export const GET_POSTS = gql`
       _id
       title
       description
-      status
+      state
     }
   }
 `;
