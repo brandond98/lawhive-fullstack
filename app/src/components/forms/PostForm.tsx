@@ -9,6 +9,8 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { CREATE_POST } from '../../graphql/mutations/createPost';
+import { GET_POSTS } from '../../graphql/queries/getPosts';
+import { errorToast, successToast } from '../../toast';
 
 type PostFormProps = {
   open: boolean;
@@ -18,7 +20,14 @@ type PostFormProps = {
 export const PostForm = ({ open, handleClose }: PostFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [createPost, { loading }] = useMutation(CREATE_POST);
+  const [createPost, { data, loading }] = useMutation(CREATE_POST, {
+    refetchQueries: [GET_POSTS, 'GetPosts'],
+    onCompleted: () => {
+      successToast('Post created!');
+      handleClose();
+    },
+    onError: (error) => errorToast(error),
+  });
 
   const active = title && description;
 
@@ -32,6 +41,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
             label="Title"
             type="text"
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
           <TextField
             autoFocus
@@ -42,13 +52,14 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
             minRows={5}
             className="description-input"
             onChange={(e) => setDescription(e.target.value)}
+            required
           />
         </form>
       </DialogContent>
       <DialogActions>
         <LoadingButton
           disabled={!active}
-          loading={loading}
+          loading={loading && !data}
           type="submit"
           onClick={() =>
             createPost({

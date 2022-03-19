@@ -8,11 +8,11 @@ export const PostList = () => {
   const { data, loading, error } = useQuery(GET_POSTS);
 
   if (loading) return <h1>Loading</h1>;
-  if (error) return <h1>{error}</h1>;
+  if (error) return <h1>Error: {error.message}</h1>;
 
   const { posts } = data;
 
-  return (
+  return posts ? (
     <section className="post-list">
       <Container>
         {posts.map((post: PostType) => (
@@ -20,5 +20,7 @@ export const PostList = () => {
         ))}
       </Container>
     </section>
+  ) : (
+    <div>No posts available!</div>
   );
 };
