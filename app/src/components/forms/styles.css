@@ -1,0 +1,10 @@
+.form-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  justify-content: space-around;
+}
+
+.description-input {
+  margin-top: 2rem;
+}

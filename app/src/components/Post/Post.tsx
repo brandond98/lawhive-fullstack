@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { PostType } from '../types/Post';
+import { PostType } from '../../types/Post';
 import './styles.css';
 
 type PostProps = {

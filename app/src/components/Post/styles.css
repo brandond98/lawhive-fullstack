@@ -1,0 +1,12 @@
+.post {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 1rem;
+  max-width: 60%;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  background-color: #f0f5ff;
+}
+
+.post-title {
+  margin-bottom: 2rem;
+}
