@@ -16,7 +16,7 @@ export const PostList = () => {
     <section className="post-list">
       <Container>
         {posts.map((post: PostType) => (
-          <Post post={post} />
+          <Post post={post} key={post._id} />
         ))}
       </Container>
     </section>
