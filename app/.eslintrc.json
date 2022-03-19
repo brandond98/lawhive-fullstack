@@ -15,6 +15,10 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "react/function-component-definition": "off",
+    "no-underscore-dangle": "off",
     "react/jsx-filename-extension": [
       1,
       {
