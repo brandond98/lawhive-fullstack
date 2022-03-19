@@ -1,15 +1,14 @@
-import { LoadingButton } from '@mui/lab'
-import { Box, CircularProgress, Paper, Stack, TextField } from '@mui/material'
-import CssBaseline from '@mui/material/CssBaseline'
-import Grid from '@mui/material/Grid'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import React from 'react'
-import './App.css'
+import { LoadingButton } from '@mui/lab';
+import { Box, CircularProgress, Paper, Stack, TextField } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import './App.css';
 
-const theme = createTheme()
+const theme = createTheme();
 
 function App() {
-  const onSubmit = () => {}
+  const onSubmit = () => {};
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -27,7 +26,7 @@ function App() {
             <span>Hello world</span>
 
             <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
-              <Stack gap={2} width={'100%'}>
+              <Stack gap={2} width="100%">
                 <TextField
                   margin="normal"
                   required
@@ -37,11 +36,7 @@ function App() {
                   name="title"
                   autoFocus
                 />
-                <LoadingButton 
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                >
+                <LoadingButton type="submit" fullWidth variant="contained">
                   Build
                 </LoadingButton>
               </Stack>
@@ -49,12 +44,7 @@ function App() {
           </Box>
         </Grid>
 
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-        >
+        <Grid item xs={false} sm={4} md={7}>
           <Box
             sx={{
               my: 8,
@@ -69,7 +59,7 @@ function App() {
         </Grid>
       </Grid>
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;

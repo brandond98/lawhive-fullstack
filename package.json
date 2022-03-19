@@ -1,0 +1,23 @@
+{
+  "name": "full-stack-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/brandond98/lawhive-fullstack.git",
+  "author": "brandon <bdickson1212@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "commit": "cz",
+    "db:up": "docker-compose up -d",
+    "db:down": "docker-compose down",
+    "dev:app": "cd app && yarn start",
+    "dev:server": "cd api && yarn start:dev"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0"
+  }
+}
