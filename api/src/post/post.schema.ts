@@ -4,11 +4,10 @@ import { ObjectType, Field, InputType, ID } from '@nestjs/graphql';
 
 export type PostDocument = Post & Document;
 
-@ObjectType()
 @Schema()
+@ObjectType()
 export class Post {
   @Field(() => ID)
-  @Prop()
   _id: number;
 
   @Field()
@@ -20,7 +19,7 @@ export class Post {
   description: string;
 
   @Field()
-  @Prop({ default: 'started' })
+  @Prop({ default: 'started', required: true })
   state: string;
 }
 

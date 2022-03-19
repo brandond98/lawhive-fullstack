@@ -1,12 +1,18 @@
-import { Resolver, Query } from '@nestjs/graphql';
-import { Post } from './post.schema';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { CreatePostInput, Post } from './post.schema';
 import { PostService } from './post.service';
 
 @Resolver()
 export class PostResolver {
   constructor(private postService: PostService) {}
+
   @Query(() => [Post])
   async posts() {
     return this.postService.findAll();
+  }
+
+  @Mutation(() => Post)
+  async createPost(@Args('input') post: CreatePostInput) {
+    return this.postService.createPost(post);
   }
 }
