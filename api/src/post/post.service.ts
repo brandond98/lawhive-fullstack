@@ -15,4 +15,8 @@ export class PostService {
   async createPost(post: CreatePostInput): Promise<Post> {
     return this.postModel.create(post);
   }
+
+  async updatePostState(id: string, amountPaid: number): Promise<Post> {
+    return this.postModel.findByIdAndUpdate(id, { state: 'paid', amountPaid });
+  }
 }

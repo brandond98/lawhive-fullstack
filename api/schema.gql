@@ -8,7 +8,9 @@ type Post {
   description: String!
   state: String!
   feeStructure: String!
-  feeUnit: Float!
+  feeAmount: Float!
+  feePercentage: Float!
+  amountPaid: Float!
 }
 
 type Query {
@@ -17,11 +19,13 @@ type Query {
 
 type Mutation {
   createPost(input: CreatePostInput!): Post!
+  updatePostState(postId: String!, amountPaid: Float!): Post!
 }
 
 input CreatePostInput {
   title: String!
   description: String!
   feeStructure: String!
-  feeUnit: Float!
+  feeAmount: Float!
+  feePercentage: Float!
 }

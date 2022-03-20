@@ -27,8 +27,16 @@ export class Post {
   feeStructure: string;
 
   @Field()
-  @Prop({ required: true })
-  feeUnit: number;
+  @Prop({ default: 0 })
+  feeAmount: number;
+
+  @Field()
+  @Prop({ default: 0 })
+  feePercentage: number;
+
+  @Field()
+  @Prop({ default: 0 })
+  amountPaid: number;
 }
 
 @InputType()
@@ -43,7 +51,10 @@ export class CreatePostInput {
   feeStructure: string;
 
   @Field()
-  feeUnit: number;
+  feeAmount: number;
+
+  @Field()
+  feePercentage: number;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

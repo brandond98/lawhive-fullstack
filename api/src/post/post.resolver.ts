@@ -15,4 +15,12 @@ export class PostResolver {
   async createPost(@Args('input') post: CreatePostInput) {
     return this.postService.createPost(post);
   }
+
+  @Mutation(() => Post)
+  async updatePostState(
+    @Args('postId') postId: string,
+    @Args('amountPaid') amountPaid: number,
+  ) {
+    return this.postService.updatePostState(postId, amountPaid);
+  }
 }
