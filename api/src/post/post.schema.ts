@@ -16,6 +16,10 @@ export class Post {
 
   @Field()
   @Prop({ required: true })
+  url: string;
+
+  @Field()
+  @Prop({ required: true })
   description: string;
 
   @Field()
@@ -49,7 +53,7 @@ export class CreatePostInput {
   title: string;
 
   @Field()
-  description: string;
+  url: string;
 
   @Field()
   feeStructure: string;
