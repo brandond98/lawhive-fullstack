@@ -7,4 +7,5 @@ export type PostType = {
   feeAmount: number;
   feePercentage: number;
   amountPaid: number;
+  expectedSettlement: number;
 };

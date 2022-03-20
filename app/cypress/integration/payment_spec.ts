@@ -47,7 +47,7 @@ describe('Fixed Payments', () => {
 });
 
 describe('No win no fee payments', () => {
-  it('Should create a no win no fee job posting', () => {
+  beforeEach(() => {
     cy.visit('http://localhost:3000');
 
     cy.findByRole('button', {
@@ -72,31 +72,42 @@ describe('No win no fee payments', () => {
 
     cy.findByRole('spinbutton', {
       name: /percentage/i,
-    }).type('73');
+    }).type('64');
+
+    cy.findByRole('spinbutton', {
+      name: /expected settlement amount/i,
+    }).type('1487');
 
     cy.findByRole('button', {
       name: /submit/i,
     }).click();
   });
 
-  it('Button should show as "mark as paid" on new post', () => {
-    cy.get('#root > section > div > div:last-child > div > button')
-      .scrollIntoView()
-      .contains('Mark as paid');
-  });
-
-  it('Should enter settlment amount and display correct amount on posting', () => {
+  it('Should enter settlment amount and display correct amount on payment if within threshold', () => {
     cy.get('#root > section > div > div:last-child > div > button').click();
     cy.findByRole('spinbutton', {
       name: /amount/i,
-    }).type('312');
+    }).type('1340');
 
     cy.findByRole('button', {
       name: /submit/i,
     }).click();
 
     cy.get('#root > section > div > div:last-child > div > span').contains(
-      'Paid: 227.76',
+      `Paid: ${1340 * 0.64}`,
     );
+  });
+
+  it('Should error if settlement amount is not in threshold', () => {
+    cy.get('#root > section > div > div:last-child > div > button').click();
+    cy.findByRole('spinbutton', {
+      name: /amount/i,
+    }).type('876');
+
+    cy.findByRole('button', {
+      name: /submit/i,
+    }).click();
+
+    cy.get('.Toastify__toast-body').contains('Error: Settlement too low!');
   });
 });
