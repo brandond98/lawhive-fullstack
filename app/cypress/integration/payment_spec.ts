@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 describe('Fixed Payments', () => {
   it('Should add a job post', () => {
     cy.visit('http://localhost:3000');
