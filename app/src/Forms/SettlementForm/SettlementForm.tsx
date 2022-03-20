@@ -45,7 +45,6 @@ export const SettlementForm = ({
           type="number"
           required
           label="Amount"
-          value={amount}
           onChange={handleChange(setAmount, true)}
         />
       </DialogContent>

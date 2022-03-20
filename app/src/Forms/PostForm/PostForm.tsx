@@ -54,11 +54,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
     });
 
   const active =
-    title &&
-    description &&
-    feeStructure &&
-    expectedSettlement &&
-    (feePercentage || feeAmount);
+    title && description && feeStructure && (feePercentage || feeAmount);
 
   return (
     <Dialog open={open} onClose={handleClose}>
