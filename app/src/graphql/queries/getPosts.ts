@@ -11,7 +11,7 @@ export const GET_POSTS = gql`
       feeAmount
       feePercentage
       amountPaid
-      settlementAmount
+      expectedSettlement
     }
   }
 `;

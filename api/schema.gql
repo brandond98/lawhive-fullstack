@@ -11,7 +11,7 @@ type Post {
   feeAmount: Float!
   feePercentage: Float!
   amountPaid: Float!
-  settlementAmount: Float!
+  expectedSettlement: Float!
 }
 
 type Query {
@@ -29,5 +29,5 @@ input CreatePostInput {
   feeStructure: String!
   feeAmount: Float!
   feePercentage: Float!
-  settlementAmount: Float!
+  expectedSettlement: Float!
 }

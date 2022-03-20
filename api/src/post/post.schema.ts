@@ -40,7 +40,7 @@ export class Post {
 
   @Field()
   @Prop({ required: true })
-  settlementAmount: number;
+  expectedSettlement: number;
 }
 
 @InputType()
@@ -61,7 +61,7 @@ export class CreatePostInput {
   feePercentage: number;
 
   @Field()
-  settlementAmount: number;
+  expectedSettlement: number;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
