@@ -1,10 +1,14 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { ScraperService } from 'src/scraper/scraper.service';
 import { CreatePostInput, Post } from './post.schema';
 import { PostService } from './post.service';
 
 @Resolver()
 export class PostResolver {
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private scraperService: ScraperService,
+  ) {}
 
   @Query(() => [Post])
   async posts() {
@@ -13,7 +17,8 @@ export class PostResolver {
 
   @Mutation(() => Post)
   async createPost(@Args('input') post: CreatePostInput) {
-    return this.postService.createPost(post);
+    const description = await this.scraperService.getData(post.url);
+    return this.postService.createPost(post, description);
   }
 
   @Mutation(() => Post)

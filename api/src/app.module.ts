@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
 import { PostsModule } from './post/post.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ScraperModule } from './scraper/scraper.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       driver: ApolloDriver,
     }),
     PostsModule,
+    ScraperModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -5,6 +5,7 @@
 type Post {
   _id: ID!
   title: String!
+  url: String!
   description: String!
   state: String!
   feeStructure: String!
@@ -25,7 +26,7 @@ type Mutation {
 
 input CreatePostInput {
   title: String!
-  description: String!
+  url: String!
   feeStructure: String!
   feeAmount: Float!
   feePercentage: Float!
