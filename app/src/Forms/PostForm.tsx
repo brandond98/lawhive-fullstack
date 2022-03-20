@@ -67,7 +67,11 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
             onChange={handleChange(setDescription)}
             required
           />
-          <Select onChange={handleChange(setFeeStructure)} value={feeStructure}>
+          <Select
+            onChange={handleChange(setFeeStructure)}
+            value={feeStructure}
+            sx={{ marginTop: 2 }}
+          >
             <MenuItem value="no-win-no-fee">No Win No Fee</MenuItem>
             <MenuItem value="fixed-fee">Fixed Fee</MenuItem>
           </Select>
@@ -76,6 +80,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
               type="number"
               label={feeStructure === 'no-win-no-fee' ? 'Percentage' : 'Amount'}
               onChange={handleChange(setFeeUnit)}
+              sx={{ marginTop: 2 }}
             />
           )}
         </FormControl>
