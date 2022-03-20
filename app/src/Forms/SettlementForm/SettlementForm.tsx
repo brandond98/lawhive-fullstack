@@ -28,10 +28,12 @@ export const SettlementForm = ({
   const [amount, setAmount] = useState(0);
 
   const handleSubmit = () => {
+    // If settlement amount is within 10% range update post state
     if (isInRange(post.expectedSettlement, amount)) {
       const payment = calculatePayment(amount, post.feePercentage);
       updatePostState({ variables: { id: post._id, amountPaid: payment } });
       handleClose();
+      // Otherwise show error message to user
     } else {
       errorToast('Settlement too low!');
     }

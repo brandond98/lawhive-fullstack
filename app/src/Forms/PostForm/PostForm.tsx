@@ -29,7 +29,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
   const [feeAmount, setFeeUnit] = useState(0);
   const [feePercentage, setFeePercentage] = useState(0);
   const [expectedSettlement, setExpectedSettlement] = useState(0);
-
+  // Creats post and handle success or error
   const [createPost, { data, loading }] = useMutation(CREATE_POST, {
     refetchQueries: [GET_POSTS, 'GetPosts'],
     onCompleted: () => {
@@ -52,7 +52,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
         },
       },
     });
-
+  // Logic for disabling button
   const active = title && url && feeStructure && (feePercentage || feeAmount);
 
   return (
