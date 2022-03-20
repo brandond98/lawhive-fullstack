@@ -17,7 +17,8 @@ export class PostResolver {
 
   @Mutation(() => Post)
   async createPost(@Args('input') post: CreatePostInput) {
-    return this.postService.createPost(post);
+    const description = await this.scraperService.getData(post.url);
+    return this.postService.createPost(post, description);
   }
 
   @Mutation(() => Post)
@@ -25,7 +26,6 @@ export class PostResolver {
     @Args('postId') postId: string,
     @Args('amountPaid') amountPaid: number,
   ) {
-    this.scraperService.getData('https://www.bbc.co.uk/news/world-59793040');
     return this.postService.updatePostState(postId, amountPaid);
   }
 }

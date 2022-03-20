@@ -24,7 +24,7 @@ type PostFormProps = {
 
 export const PostForm = ({ open, handleClose }: PostFormProps) => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [url, setUrl] = useState('');
   const [feeStructure, setFeeStructure] = useState('');
   const [feeAmount, setFeeUnit] = useState(0);
   const [feePercentage, setFeePercentage] = useState(0);
@@ -44,7 +44,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
       variables: {
         input: {
           title,
-          description,
+          url,
           feeStructure,
           feeAmount,
           feePercentage,
@@ -53,8 +53,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
       },
     });
 
-  const active =
-    title && description && feeStructure && (feePercentage || feeAmount);
+  const active = title && url && feeStructure && (feePercentage || feeAmount);
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -69,13 +68,11 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
             required
           />
           <TextField
-            label="Description"
+            label="Url"
             type="text"
-            multiline
             sx={{ marginTop: 2 }}
-            minRows={5}
             className="description-input"
-            onChange={handleChange(setDescription)}
+            onChange={handleChange(setUrl)}
             required
           />
           <Select

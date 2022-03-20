@@ -19,7 +19,7 @@ export class Post {
   url: string;
 
   @Field()
-  @Prop({ required: true })
+  @Prop()
   description: string;
 
   @Field()

@@ -12,8 +12,8 @@ export class PostService {
     return this.postModel.find();
   }
 
-  async createPost(post: CreatePostInput): Promise<Post> {
-    return this.postModel.create(post);
+  async createPost(post: CreatePostInput, description: string): Promise<Post> {
+    return this.postModel.create({ ...post, description });
   }
 
   async updatePostState(id: string, amountPaid: number): Promise<Post> {

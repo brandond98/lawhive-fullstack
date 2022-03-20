@@ -18,6 +18,6 @@ export class ScraperService {
         });
       return contentList.join(' ');
     });
-    console.log(results);
+    return results;
   }
 }
