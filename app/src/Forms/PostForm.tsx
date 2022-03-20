@@ -5,12 +5,16 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
+  MenuItem,
+  Select,
   TextField,
 } from '@mui/material';
 import { useState } from 'react';
-import { CREATE_POST } from '../../graphql/mutations/createPost';
-import { GET_POSTS } from '../../graphql/queries/getPosts';
-import { errorToast, successToast } from '../../toast';
+import { CREATE_POST } from '../graphql/mutations/createPost';
+import { GET_POSTS } from '../graphql/queries/getPosts';
+import { handleChange } from '../helpers';
+import { errorToast, successToast } from '../toast';
 
 type PostFormProps = {
   open: boolean;
@@ -20,6 +24,9 @@ type PostFormProps = {
 export const PostForm = ({ open, handleClose }: PostFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [feeStructure, setFeeStructure] = useState('');
+  const [feeUnit, setFeeUnit] = useState(0);
+
   const [createPost, { data, loading }] = useMutation(CREATE_POST, {
     refetchQueries: [GET_POSTS, 'GetPosts'],
     onCompleted: () => {
@@ -29,43 +36,61 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
     onError: (error) => errorToast(error),
   });
 
-  const active = title && description;
+  const handleCreate = () =>
+    createPost({
+      variables: {
+        input: { title, description, feeStructure, feeUnit },
+      },
+    });
+
+  const active = title && description && feeStructure && feeUnit;
 
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Create Job Posting</DialogTitle>
       <DialogContent>
-        <form className="form-content">
+        <FormControl className="form-content" sx={{ padding: '1rem' }}>
           <TextField
             autoFocus
             label="Title"
             type="text"
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={handleChange(setTitle)}
             required
           />
           <TextField
-            autoFocus
             label="Description"
             type="text"
             multiline
             sx={{ marginTop: 2 }}
             minRows={5}
             className="description-input"
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={handleChange(setDescription)}
             required
           />
-        </form>
+          <Select
+            onChange={handleChange(setFeeStructure)}
+            value={feeStructure}
+            sx={{ marginTop: 2 }}
+          >
+            <MenuItem value="no-win-no-fee">No Win No Fee</MenuItem>
+            <MenuItem value="fixed-fee">Fixed Fee</MenuItem>
+          </Select>
+          {feeStructure && (
+            <TextField
+              type="number"
+              label={feeStructure === 'no-win-no-fee' ? 'Percentage' : 'Amount'}
+              onChange={handleChange(setFeeUnit)}
+              sx={{ marginTop: 2 }}
+            />
+          )}
+        </FormControl>
       </DialogContent>
       <DialogActions>
         <LoadingButton
           disabled={!active}
           loading={loading && !data}
           type="submit"
-          onClick={() =>
-            createPost({
-              variables: { input: { title, description } },
-            })
-          }
+          onClick={handleCreate}
         >
           Submit
         </LoadingButton>

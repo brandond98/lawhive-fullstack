@@ -7,6 +7,8 @@ type Post {
   title: String!
   description: String!
   state: String!
+  feeStructure: String!
+  feeUnit: Float!
 }
 
 type Query {
@@ -20,4 +22,6 @@ type Mutation {
 input CreatePostInput {
   title: String!
   description: String!
+  feeStructure: String!
+  feeUnit: Float!
 }

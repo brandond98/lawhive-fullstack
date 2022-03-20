@@ -21,6 +21,14 @@ export class Post {
   @Field()
   @Prop({ default: 'started', required: true })
   state: string;
+
+  @Field()
+  @Prop({ required: true })
+  feeStructure: string;
+
+  @Field()
+  @Prop({ required: true })
+  feeUnit: number;
 }
 
 @InputType()
@@ -30,6 +38,12 @@ export class CreatePostInput {
 
   @Field()
   description: string;
+
+  @Field()
+  feeStructure: string;
+
+  @Field()
+  feeUnit: number;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
