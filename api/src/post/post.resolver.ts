@@ -19,8 +19,8 @@ export class PostResolver {
   @Mutation(() => Post)
   async updatePostState(
     @Args('postId') postId: string,
-    @Args('feeAmount') feeAmount: number,
+    @Args('amountPaid') amountPaid: number,
   ) {
-    return this.postService.updatePostState(postId, feeAmount);
+    return this.postService.updatePostState(postId, amountPaid);
   }
 }

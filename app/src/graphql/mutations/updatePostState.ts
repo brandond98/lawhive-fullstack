@@ -5,7 +5,7 @@ export const UPDATE_POST_STATE = gql`
     updatePostState(postId: $id, feeAmount: $feeAmount) {
       _id
       state
-      feeAmount
+      amountPaid
     }
   }
 `;

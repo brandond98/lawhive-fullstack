@@ -6,4 +6,5 @@ export type PostType = {
   feeStructure: string;
   feeAmount: number;
   feePercentage: number;
+  amountPaid: number;
 };

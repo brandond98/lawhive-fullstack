@@ -10,6 +10,7 @@ export const GET_POSTS = gql`
       feeStructure
       feeAmount
       feePercentage
+      amountPaid
     }
   }
 `;
