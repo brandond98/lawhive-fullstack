@@ -1,7 +1,7 @@
 import { Box, Button, Container } from '@mui/material';
 import { useState } from 'react';
 import './styles.css';
-import { PostForm } from '../Forms/PostForm';
+import { PostForm } from '../../Forms/PostForm';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
