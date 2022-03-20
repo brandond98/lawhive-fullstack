@@ -7,6 +7,9 @@ export const GET_POSTS = gql`
       title
       description
       state
+      feeStructure
+      feeAmount
+      feePercentage
     }
   }
 `;

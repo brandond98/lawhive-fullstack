@@ -8,7 +8,8 @@ type Post {
   description: String!
   state: String!
   feeStructure: String!
-  feeUnit: Float!
+  feeAmount: Float!
+  feePercentage: Float!
 }
 
 type Query {
@@ -23,5 +24,6 @@ input CreatePostInput {
   title: String!
   description: String!
   feeStructure: String!
-  feeUnit: Float!
+  feeAmount: Float!
+  feePercentage: Float!
 }

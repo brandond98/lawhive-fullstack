@@ -4,5 +4,6 @@ export type PostType = {
   description: string;
   status: string;
   feeStructure: string;
-  feeUnit: number;
+  feeAmount: number;
+  feePercentage: number;
 };
