@@ -18,6 +18,7 @@ type Query {
 
 type Mutation {
   createPost(input: CreatePostInput!): Post!
+  updatePostState(postId: String!, feeAmount: Float!): Post!
 }
 
 input CreatePostInput {
