@@ -10,3 +10,11 @@
 .post-title {
   margin-bottom: 2rem;
 }
+
+.payment {
+  text-align: right;
+}
+
+.paid {
+  color: #00cc0a;
+}

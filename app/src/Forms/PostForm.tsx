@@ -25,7 +25,8 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [feeStructure, setFeeStructure] = useState('');
-  const [feeUnit, setFeeUnit] = useState(0);
+  const [feeAmount, setFeeUnit] = useState(0);
+  const [feePercentage, setFeePercentage] = useState(0);
 
   const [createPost, { data, loading }] = useMutation(CREATE_POST, {
     refetchQueries: [GET_POSTS, 'GetPosts'],
@@ -39,11 +40,12 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
   const handleCreate = () =>
     createPost({
       variables: {
-        input: { title, description, feeStructure, feeUnit },
+        input: { title, description, feeStructure, feeAmount, feePercentage },
       },
     });
 
-  const active = title && description && feeStructure && feeUnit;
+  const active =
+    title && description && feeStructure && (feePercentage || feeAmount);
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -79,7 +81,11 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
             <TextField
               type="number"
               label={feeStructure === 'no-win-no-fee' ? 'Percentage' : 'Amount'}
-              onChange={handleChange(setFeeUnit)}
+              onChange={
+                feeStructure === 'no-win-no-fee'
+                  ? handleChange(setFeePercentage, true)
+                  : handleChange(setFeeUnit, true)
+              }
               sx={{ marginTop: 2 }}
             />
           )}
