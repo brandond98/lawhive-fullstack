@@ -23,11 +23,13 @@ export const Post = ({ post }: PostProps) => {
   const handleClose = () => setOpen(false);
 
   const handleSubmit = () => {
+    // If fee structure is fixed update post state
     if (post.feeStructure === 'fixed-fee')
       updatePostState({
         variables: { id: post._id, amountPaid: post.feeAmount },
       });
     else {
+      // Otherwise open dialog to enter settlment amount
       handleOpen();
     }
   };
