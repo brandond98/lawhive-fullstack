@@ -11,10 +11,11 @@ import {
   TextField,
 } from '@mui/material';
 import { useState } from 'react';
-import { CREATE_POST } from '../graphql/mutations/createPost';
-import { GET_POSTS } from '../graphql/queries/getPosts';
-import { handleChange } from '../helpers';
-import { errorToast, successToast } from '../toast';
+import { CREATE_POST } from '../../graphql/mutations/createPost';
+import { GET_POSTS } from '../../graphql/queries/getPosts';
+import { handleChange } from '../../helpers';
+import { errorToast, successToast } from '../../toast';
+import './styles.css';
 
 type PostFormProps = {
   open: boolean;

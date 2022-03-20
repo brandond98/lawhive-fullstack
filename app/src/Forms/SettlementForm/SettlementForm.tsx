@@ -7,9 +7,9 @@ import {
   Button,
 } from '@mui/material';
 import { useState } from 'react';
-import { calculatePayment, handleChange } from '../helpers';
-import { PostType } from '../types/Post';
-import { UpdatePostState } from '../types/UpdatePostState';
+import { calculatePayment, handleChange } from '../../helpers';
+import { PostType } from '../../types/Post';
+import { UpdatePostState } from '../../types/UpdatePostState';
 
 type SettlmentFormProps = {
   post: PostType;
