@@ -23,4 +23,5 @@ input CreatePostInput {
   title: String!
   description: String!
   feeStructure: String!
+  feeUnit: Float!
 }

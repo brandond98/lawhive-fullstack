@@ -41,6 +41,9 @@ export class CreatePostInput {
 
   @Field()
   feeStructure: string;
+
+  @Field()
+  feeUnit: number;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
