@@ -3,4 +3,6 @@ export type PostType = {
   title: string;
   description: string;
   status: string;
+  feeStructure: string;
+  feeUnit: number;
 };
