@@ -1,12 +1,11 @@
-import { ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
 
 const topCenter = {
   position: toast.POSITION.TOP_CENTER,
 };
 
-export const errorToast = (error: ApolloError) => {
-  return toast.error(`Error: ${error.message}`, topCenter);
+export const errorToast = (message: string) => {
+  return toast.error(`Error: ${message}`, topCenter);
 };
 
 export const successToast = (message: string) => {

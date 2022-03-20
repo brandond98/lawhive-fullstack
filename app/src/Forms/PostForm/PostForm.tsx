@@ -28,6 +28,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
   const [feeStructure, setFeeStructure] = useState('');
   const [feeAmount, setFeeUnit] = useState(0);
   const [feePercentage, setFeePercentage] = useState(0);
+  const [expectedSettlement, setExpectedSettlement] = useState(0);
 
   const [createPost, { data, loading }] = useMutation(CREATE_POST, {
     refetchQueries: [GET_POSTS, 'GetPosts'],
@@ -35,18 +36,29 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
       successToast('Post created!');
       handleClose();
     },
-    onError: (error) => errorToast(error),
+    onError: (error) => errorToast(error.message),
   });
 
   const handleCreate = () =>
     createPost({
       variables: {
-        input: { title, description, feeStructure, feeAmount, feePercentage },
+        input: {
+          title,
+          description,
+          feeStructure,
+          feeAmount,
+          feePercentage,
+          expectedSettlement,
+        },
       },
     });
 
   const active =
-    title && description && feeStructure && (feePercentage || feeAmount);
+    title &&
+    description &&
+    feeStructure &&
+    expectedSettlement &&
+    (feePercentage || feeAmount);
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -74,6 +86,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
             onChange={handleChange(setFeeStructure)}
             value={feeStructure}
             sx={{ marginTop: 2 }}
+            required
           >
             <MenuItem value="no-win-no-fee">No Win No Fee</MenuItem>
             <MenuItem value="fixed-fee">Fixed Fee</MenuItem>
@@ -88,6 +101,16 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
                   : handleChange(setFeeUnit, true)
               }
               sx={{ marginTop: 2 }}
+              required
+            />
+          )}
+          {feeStructure === 'no-win-no-fee' && (
+            <TextField
+              type="number"
+              onChange={handleChange(setExpectedSettlement, true)}
+              label="Expected Settlement Amount"
+              sx={{ marginTop: 2 }}
+              required
             />
           )}
         </FormControl>

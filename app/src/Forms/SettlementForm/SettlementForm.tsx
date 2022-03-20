@@ -7,7 +7,8 @@ import {
   Button,
 } from '@mui/material';
 import { useState } from 'react';
-import { calculatePayment, handleChange } from '../../helpers';
+import { calculatePayment, handleChange, isInRange } from '../../helpers';
+import { errorToast } from '../../toast';
 import { PostType } from '../../types/Post';
 import { UpdatePostState } from '../../types/UpdatePostState';
 
@@ -25,10 +26,15 @@ export const SettlementForm = ({
   post,
 }: SettlmentFormProps) => {
   const [amount, setAmount] = useState(0);
+
   const handleSubmit = () => {
-    const payment = calculatePayment(amount, post.feePercentage);
-    updatePostState({ variables: { id: post._id, amountPaid: payment } });
-    handleClose();
+    if (isInRange(post.expectedSettlement, amount)) {
+      const payment = calculatePayment(amount, post.feePercentage);
+      updatePostState({ variables: { id: post._id, amountPaid: payment } });
+      handleClose();
+    } else {
+      errorToast('Settlement too low!');
+    }
   };
 
   return (
