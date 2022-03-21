@@ -23,6 +23,8 @@
     "import/extensions": "off",
     "react/function-component-definition": "off",
     "no-underscore-dangle": "off",
+    "no-use-before-define": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [
       1,
       {
