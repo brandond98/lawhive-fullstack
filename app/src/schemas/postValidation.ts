@@ -7,7 +7,7 @@ export const postValidationSchema = Yup.object({
     .required('Required'),
   url: Yup.string().required('Required'),
   feeStructure: Yup.string().required('Required'),
-  feeAmount: Yup.string(),
-  feePercentage: Yup.string(),
-  expectedSettlment: Yup.string(),
+  feeAmount: Yup.number(),
+  feePercentage: Yup.number(),
+  expectedSettlement: Yup.number(),
 });
