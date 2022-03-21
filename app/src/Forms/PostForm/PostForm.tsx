@@ -1,12 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { LoadingButton } from '@mui/lab';
-import {
-  Dialog,
-  DialogTitle,
-  MenuItem,
-  Select,
-  TextField,
-} from '@mui/material';
+import { Dialog, DialogTitle, MenuItem, Select } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { FormikInput, FormikSelect } from '../../components';
 import { CREATE_POST } from '../../graphql/mutations/createPost';
@@ -49,20 +43,11 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
       >
         {({ values, isSubmitting }) => (
           <Form className="post-form">
-            <FormikInput
-              autoFocus
-              label="Title"
-              type="text"
-              required
-              as={TextField}
-              name="title"
-            />
+            <FormikInput autoFocus label="Title" required name="title" />
             <FormikInput
               label="Url"
-              type="text"
               className="description-input"
               required
-              as={TextField}
               name="url"
             />
             <FormikSelect required as={Select} name="feeStructure">
@@ -76,13 +61,11 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
                   label="Percentage"
                   required
                   name="feePercentage"
-                  as={TextField}
                 />
                 <FormikInput
                   type="number"
                   label="Expected Settlement Amount"
                   required
-                  as={TextField}
                   name="expectedSettlement"
                 />
               </>
@@ -93,7 +76,6 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
                 label="Amount"
                 required
                 name="feeAmount"
-                as={TextField}
               />
             )}
             <LoadingButton type="submit" loading={isSubmitting}>
