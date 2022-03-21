@@ -1,9 +1,9 @@
-.form-content {
+.post-form {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  padding: 1rem;
 }
 
-.description-input {
-  margin-top: 2rem;
+.post-form > div {
+  margin-bottom: 1rem;
 }

@@ -12,8 +12,8 @@ describe('Fixed Payments', () => {
     }).type('Test Title');
 
     cy.findByRole('textbox', {
-      name: /description/i,
-    }).type('Test description');
+      name: /url/i,
+    }).type('https://www.bbc.co.uk/news/world-59793040');
 
     cy.findByRole('button', {
       name: /​/i,
@@ -30,6 +30,8 @@ describe('Fixed Payments', () => {
     cy.findByRole('button', {
       name: /submit/i,
     }).click();
+    cy.intercept('http://localhost:4000/graphql').as('createPost');
+    cy.wait('@createPost');
   });
 
   it('Button should show as "mark as paid" on new post', () => {
@@ -59,8 +61,8 @@ describe('No win no fee payments', () => {
     }).type('Test Title');
 
     cy.findByRole('textbox', {
-      name: /description/i,
-    }).type('Test description');
+      name: /url/i,
+    }).type('https://www.bbc.co.uk/news/world-59793040');
 
     cy.findByRole('button', {
       name: /​/i,
@@ -81,6 +83,9 @@ describe('No win no fee payments', () => {
     cy.findByRole('button', {
       name: /submit/i,
     }).click();
+
+    cy.intercept('http://localhost:4000/graphql').as('createPost');
+    cy.wait('@createPost');
   });
 
   it('Should enter settlment amount and display correct amount on payment if within threshold', () => {

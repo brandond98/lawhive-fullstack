@@ -2,18 +2,16 @@ import { useMutation } from '@apollo/client';
 import { LoadingButton } from '@mui/lab';
 import {
   Dialog,
-  DialogActions,
-  DialogContent,
   DialogTitle,
-  FormControl,
   MenuItem,
   Select,
   TextField,
 } from '@mui/material';
-import { useState } from 'react';
+import { Form, Formik } from 'formik';
+import { FormikInput, FormikSelect } from '../../components';
 import { CREATE_POST } from '../../graphql/mutations/createPost';
 import { GET_POSTS } from '../../graphql/queries/getPosts';
-import { handleChange } from '../../helpers';
+import { postValidationSchema } from '../../schemas/postValidation';
 import { errorToast, successToast } from '../../toast';
 import './styles.css';
 
@@ -23,14 +21,9 @@ type PostFormProps = {
 };
 
 export const PostForm = ({ open, handleClose }: PostFormProps) => {
-  const [title, setTitle] = useState('');
-  const [url, setUrl] = useState('');
-  const [feeStructure, setFeeStructure] = useState('');
-  const [feeAmount, setFeeUnit] = useState(0);
-  const [feePercentage, setFeePercentage] = useState(0);
-  const [expectedSettlement, setExpectedSettlement] = useState(0);
   // Creats post and handle success or error
-  const [createPost, { data, loading }] = useMutation(CREATE_POST, {
+
+  const [createPost] = useMutation(CREATE_POST, {
     refetchQueries: [GET_POSTS, 'GetPosts'],
     onCompleted: () => {
       successToast('Post created!');
@@ -39,85 +32,76 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
     onError: (error) => errorToast(error.message),
   });
 
-  const handleCreate = () =>
-    createPost({
-      variables: {
-        input: {
-          title,
-          url,
-          feeStructure,
-          feeAmount,
-          feePercentage,
-          expectedSettlement,
-        },
-      },
-    });
-  // Logic for disabling button
-  const active = title && url && feeStructure && (feePercentage || feeAmount);
-
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Create Job Posting</DialogTitle>
-      <DialogContent>
-        <FormControl className="form-content" sx={{ padding: '1rem' }}>
-          <TextField
-            autoFocus
-            label="Title"
-            type="text"
-            onChange={handleChange(setTitle)}
-            required
-          />
-          <TextField
-            label="Url"
-            type="text"
-            sx={{ marginTop: 2 }}
-            className="description-input"
-            onChange={handleChange(setUrl)}
-            required
-          />
-          <Select
-            onChange={handleChange(setFeeStructure)}
-            value={feeStructure}
-            sx={{ marginTop: 2 }}
-            required
-          >
-            <MenuItem value="no-win-no-fee">No Win No Fee</MenuItem>
-            <MenuItem value="fixed-fee">Fixed Fee</MenuItem>
-          </Select>
-          {feeStructure && (
-            <TextField
-              type="number"
-              label={feeStructure === 'no-win-no-fee' ? 'Percentage' : 'Amount'}
-              onChange={
-                feeStructure === 'no-win-no-fee'
-                  ? handleChange(setFeePercentage, true)
-                  : handleChange(setFeeUnit, true)
-              }
-              sx={{ marginTop: 2 }}
+      <Formik
+        initialValues={{
+          title: '',
+          url: '',
+          feeStructure: '',
+          feePercentage: 0,
+          feeAmount: 0,
+          expectedSettlement: 0,
+        }}
+        onSubmit={(input) => createPost({ variables: { input } })}
+        validationSchema={postValidationSchema}
+      >
+        {({ values, isSubmitting }) => (
+          <Form className="post-form">
+            <FormikInput
+              autoFocus
+              label="Title"
+              type="text"
               required
+              as={TextField}
+              name="title"
             />
-          )}
-          {feeStructure === 'no-win-no-fee' && (
-            <TextField
-              type="number"
-              onChange={handleChange(setExpectedSettlement, true)}
-              label="Expected Settlement Amount"
-              sx={{ marginTop: 2 }}
+            <FormikInput
+              label="Url"
+              type="text"
+              className="description-input"
               required
+              as={TextField}
+              name="url"
             />
-          )}
-        </FormControl>
-      </DialogContent>
-      <DialogActions>
-        <LoadingButton
-          disabled={!active}
-          loading={loading && !data}
-          type="submit"
-          onClick={handleCreate}
-        >
-          Submit
-        </LoadingButton>
-      </DialogActions>
+            <FormikSelect required as={Select} name="feeStructure">
+              <MenuItem value="no-win-no-fee">No Win No Fee</MenuItem>
+              <MenuItem value="fixed-fee">Fixed Fee</MenuItem>
+            </FormikSelect>
+            {values.feeStructure === 'no-win-no-fee' && (
+              <>
+                <FormikInput
+                  type="number"
+                  label="Percentage"
+                  required
+                  name="feePercentage"
+                  as={TextField}
+                />
+                <FormikInput
+                  type="number"
+                  label="Expected Settlement Amount"
+                  required
+                  as={TextField}
+                  name="expectedSettlement"
+                />
+              </>
+            )}
+            {values.feeStructure === 'fixed-fee' && (
+              <FormikInput
+                type="number"
+                label="Amount"
+                required
+                name="feeAmount"
+                as={TextField}
+              />
+            )}
+            <LoadingButton type="submit" loading={isSubmitting}>
+              Submit
+            </LoadingButton>
+          </Form>
+        )}
+      </Formik>
     </Dialog>
   );
 };
