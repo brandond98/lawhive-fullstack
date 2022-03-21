@@ -11,7 +11,7 @@ import { Form, Formik } from 'formik';
 import { FormikInput, FormikSelect } from '../../components';
 import { CREATE_POST } from '../../graphql/mutations/createPost';
 import { GET_POSTS } from '../../graphql/queries/getPosts';
-import { validationSchema } from '../../schemas/postValidation';
+import { postValidationSchema } from '../../schemas/postValidation';
 import { errorToast, successToast } from '../../toast';
 import './styles.css';
 
@@ -45,7 +45,7 @@ export const PostForm = ({ open, handleClose }: PostFormProps) => {
           expectedSettlement: 0,
         }}
         onSubmit={(input) => createPost({ variables: { input } })}
-        validationSchema={validationSchema}
+        validationSchema={postValidationSchema}
       >
         {({ values, isSubmitting }) => (
           <Form className="post-form">

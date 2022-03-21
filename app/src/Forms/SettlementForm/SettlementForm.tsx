@@ -1,13 +1,9 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Button,
-} from '@mui/material';
-import { useState } from 'react';
-import { calculatePayment, handleChange, isInRange } from '../../helpers';
+import { LoadingButton } from '@mui/lab';
+import { Dialog, DialogTitle } from '@mui/material';
+import { Form, Formik } from 'formik';
+import { FormikInput } from '../../components';
+import { calculatePayment, isInRange } from '../../helpers';
+import { settlementValidationSchema } from '../../schemas/settlementSchema';
 import { errorToast } from '../../toast';
 import { PostType } from '../../types/Post';
 import { UpdatePostState } from '../../types/UpdatePostState';
@@ -25,9 +21,7 @@ export const SettlementForm = ({
   updatePostState,
   post,
 }: SettlmentFormProps) => {
-  const [amount, setAmount] = useState(0);
-
-  const handleSubmit = () => {
+  const handleSubmit = (amount: number) => {
     // If settlement amount is within 10% range update post state
     if (isInRange(post.expectedSettlement, amount)) {
       const payment = calculatePayment(amount, post.feePercentage);
@@ -42,17 +36,18 @@ export const SettlementForm = ({
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Enter settlement amount</DialogTitle>
-      <DialogContent>
-        <TextField
-          type="number"
-          required
-          label="Amount"
-          onChange={handleChange(setAmount, true)}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleSubmit}>Submit</Button>
-      </DialogActions>
+      <Formik
+        initialValues={{ amount: 0 }}
+        onSubmit={({ amount }) => handleSubmit(amount)}
+        validationSchema={settlementValidationSchema}
+      >
+        {() => (
+          <Form>
+            <FormikInput type="number" required label="Amount" name="amount" />
+            <LoadingButton type="submit">Submit</LoadingButton>
+          </Form>
+        )}
+      </Formik>
     </Dialog>
   );
 };
